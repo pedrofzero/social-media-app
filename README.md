@@ -1,0 +1,1 @@
+Social Media App with React & Symfony
