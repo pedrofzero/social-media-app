@@ -1,12 +1,13 @@
 import React from 'react'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
+import LandingPage from '../pages/landing';
 
 const Router = () => {
 
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
-        <Route path='/' element={<h1>Hello</h1>} />
+        <Route path='/' element={<LandingPage />} />
       </>
     )
   );
