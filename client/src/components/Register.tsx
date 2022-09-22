@@ -13,8 +13,10 @@ const Register = ({ setRegisterModal }: Props) => {
     api.post('/auth/register', {
       email: fields.email,
       username: fields.username,
-      name: fields.name,
       password: fields.password
+    })
+    .then(response => {
+      console.log(response)
     })
   }
 
@@ -28,12 +30,6 @@ const Register = ({ setRegisterModal }: Props) => {
             placeholder="E-mail address"
             className="px-4 py-3 mt-4 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
             {...register("email")}
-          />
-
-          <input
-            placeholder="Full Name"
-            className="px-4 py-3 mt-4 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-            {...register("name")}
           />
 
           <input

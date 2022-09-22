@@ -5,7 +5,7 @@ import AppLayout from './layout/appLayout';
 function App() {
   return (
     <AppLayout>
-      <Router/>
+      <Router />
     </AppLayout>
   );
 }
