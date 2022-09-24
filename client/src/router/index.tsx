@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import LandingPage from '../pages/landing';
-import AuthContext from '../contexts/auth';
 import ProtectedRoute from './ProtectedRoute';
 import Home from '../pages/home';
 

@@ -2,7 +2,13 @@ import React from 'react'
 
 const CreatePost = () => {
   return (
-    <div>CreatePost</div>
+    <div className='flex-col'>
+      <p>1</p>
+      <div>
+        <p>2</p>
+        <p>3</p>
+      </div>
+    </div>
   )
 }
 

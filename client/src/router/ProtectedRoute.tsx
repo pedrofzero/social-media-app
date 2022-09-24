@@ -1,15 +1,21 @@
 import React, { ReactElement } from 'react'
+import { useSelector } from 'react-redux'
 import LandingPage from '../pages/landing'
 
 type Props = {
     children: ReactElement
 }
 
+interface RootState {
+    user: object
+}
+
 const ProtectedRoute = ({ children }: Props) => {
 
-    const access = localStorage.getItem('token')
+    const user = useSelector((state: RootState) => state.user)
+    console.log(`user: ${user}`)
 
-    if (!access) {
+    if (!user) {
         return <LandingPage />
     }
 

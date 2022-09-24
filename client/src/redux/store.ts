@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
-import userReducer from "./userReducer";
+import authReducer from "./authReducer";
 import { persistReducer, persistStore } from "redux-persist";
 import thunk from 'redux-thunk'
 
@@ -9,7 +9,7 @@ const persistConfig = {
     storage,
 }
 
-const persistedReducer = persistReducer(persistConfig, userReducer)
+const persistedReducer = persistReducer(persistConfig, authReducer)
 
 
 export const store = configureStore({
