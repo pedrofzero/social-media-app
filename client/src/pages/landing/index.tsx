@@ -12,7 +12,7 @@ const LandingPage = () => {
     <>
       {registerModal &&
         <>
-          <Modal setRegisterModal={setRegisterModal}>
+          <Modal setModal={setRegisterModal}>
             <Register setRegisterModal={setRegisterModal} />
           </Modal>
         </>

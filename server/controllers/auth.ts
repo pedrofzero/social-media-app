@@ -30,8 +30,8 @@ export const login = async (req: Request, res: Response) => {
     } else {
 
         // generate tokens
-        const accessToken = jwt.sign({ username }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: "30s" })
-        const refreshToken = jwt.sign({ username }, process.env.REFRESH_TOKEN_SECRET!, { expiresIn: "1d" })
+        const accessToken = jwt.sign({ username, role: user.role }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: "30s" })
+        const refreshToken = jwt.sign({ username, role: user.role }, process.env.REFRESH_TOKEN_SECRET!, { expiresIn: "1d" })
 
         // add refresh token to dataabase
         await prisma.refreshToken.create({

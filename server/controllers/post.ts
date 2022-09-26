@@ -1,9 +1,10 @@
 import { Request, Response } from "express"
 import { prisma } from "../utils/db"
 import cloudinary from "../utils/cloudinary"
+import jwt from 'jsonwebtoken'
 
 export const createPost = async (req: Request, res: Response) => {
-    const { text, username, media } = req.body
+    const { text, media, userId } = req.body
     let image;
 
     // upload image and save it in image variable
@@ -15,26 +16,19 @@ export const createPost = async (req: Request, res: Response) => {
                 image = response.url
             })
 
-        // get user's id
-        const user = await prisma.user.findFirst({
-            where: {
-                username
-            }
-        })
-
         await prisma.post.create({
             data: {
                 text: text,
-                authorId: `${user?.id}`,
-                media: image
+                media: image,
+                authorId: userId,
             }
         })
         res.status(201).send("Post created successfully.")
    
     } catch (err) {
-        return err
-    }
 
+        return res.send(err)
+    }
 
 }
 

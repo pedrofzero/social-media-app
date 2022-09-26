@@ -6,6 +6,7 @@ import Post from '../../components/Post'
 import { api } from '../../helpers/api'
 import { useWindowSize } from '../../hooks/useWindowSize'
 import Header from '../../layout/header'
+import Modal from '../../layout/modal'
 
 const Home = () => {
 
@@ -20,29 +21,31 @@ const Home = () => {
             })
     }, [])
 
-
     return (
-        <div>
-            <Header />
-            <div className='grid md:grid-cols-3 pt-4 justify-items-center  border-solid border-2 border-blue-500'>
-                <div className='hidden md:block h-fit md:w-3/4 lg:w-4/5 bg-white rounded-lg justify-end p-4'>
-                    <Activity />
-                </div>
-                <div className='w-full grid gap-2'>
-                    <div className='h-auto bg-white rounded-lg p-5'>
-                        <CreatePost />
+        <>
+            <div>
+                <Header />
+                <div className={`grid md:grid-cols-3 pt-4 justify-items-center border-solid border-2 border-blue-500`}>
+                    <div className='hidden md:block h-fit md:w-3/4 lg:w-4/5 bg-white rounded-lg justify-end p-4'>
+                        <Activity />
                     </div>
-                    {!loading &&
+                    <div className='w-full grid gap-2'>
                         <div className='h-auto bg-white rounded-lg p-5'>
-                            <Post data={data!} />
+                            <CreatePost />
                         </div>
-                    }
-                </div>
-                <div className='hidden md:block h-fit md:w-3/4 lg:w-4/5 bg-white rounded-lg justify-end p-4'>
-                    <Messages />
+                        {!loading &&
+                            // <div className='flex flex-col gap-4'>
+                                <Post data={data!} />
+                            // </div>
+                        }
+                    </div>
+                    <div className='hidden md:block h-fit md:w-3/4 lg:w-4/5 bg-white rounded-lg justify-end p-4'>
+                        <Messages />
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
+
     )
 }
 

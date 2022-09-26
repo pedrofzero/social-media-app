@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
 import { api, login } from '../helpers/api';
 import { useDispatch } from 'react-redux'
-import { selectCurrentToken, setCredentials } from '../redux/authReducer';
+import { setCredentials } from '../redux/authReducer';
 
 type Props = {
     setRegisterModal: (registerModal: boolean) => void;
@@ -39,7 +39,6 @@ const Login = ({ setRegisterModal }: Props) => {
                         className="px-4 py-3 mt-4 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-
                     />
                     <p></p>
 

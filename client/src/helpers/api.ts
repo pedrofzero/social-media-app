@@ -26,8 +26,6 @@ api.interceptors.response.use((response) => {
     })
 
 
-
-
 // api calls
 export const login = async (username: any, password: any) => {
     await api.post('auth/login', {
@@ -49,7 +47,7 @@ export const login = async (username: any, password: any) => {
 
 export const refreshToken = async () => {
     let token;
-    
+
     await api.get('/auth/refreshToken')
         .then(response => {
             localStorage.setItem('token', response.data.accessToken)
@@ -57,4 +55,23 @@ export const refreshToken = async () => {
             token = response.data.accessToken
         })
     return token
+}
+
+// Posts
+
+type Post = {
+    text: string
+    image: string
+    userId?: string
+}
+
+export const createPost = async (data: Post) => {
+    const { text, image, userId } = data;
+    api.post('post/createPost', {
+        text: text,
+        media: image,
+        userId: userId
+    }).then(response => {
+        console.log(response)
+    })
 }
