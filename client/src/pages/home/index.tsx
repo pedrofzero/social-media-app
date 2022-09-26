@@ -21,11 +21,13 @@ const Home = () => {
             })
     }, [])
 
+
+
     return (
         <>
             <div>
                 <Header />
-                <div className={`grid md:grid-cols-3 pt-4 justify-items-center border-solid border-2 border-blue-500`}>
+                <div className={`grid md:grid-cols-3 pt-4 justify-items-center border-solid border-2`}>
                     <div className='hidden md:block h-fit md:w-3/4 lg:w-4/5 bg-white rounded-lg justify-end p-4'>
                         <Activity />
                     </div>
