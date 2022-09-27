@@ -27,11 +27,11 @@ const Home = () => {
         <>
             <div>
                 <Header />
-                <div className={`grid md:grid-cols-3 pt-4 justify-items-center border-solid border-2`}>
-                    <div className='hidden md:block h-fit md:w-3/4 lg:w-4/5 bg-white rounded-lg justify-end p-4'>
+                <div className={`grid sm:grid-cols-2 md:grid-cols-3 pt-4 justify-items-center border-solid border-2`}>
+                    <div className='hidden sm:block h-fit md:w-3/4 lg:w-4/5 bg-white rounded-lg justify-end p-4'>
                         <Activity />
                     </div>
-                    <div className='w-full grid gap-2'>
+                    <div className='w-full grid gap-2 p-2 '>
                         <div className='h-auto bg-white rounded-lg p-5'>
                             <CreatePost />
                         </div>

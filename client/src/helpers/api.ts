@@ -4,11 +4,12 @@ import axios from "axios"
 export const api = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
     headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
     }
 })
 
 api.defaults.headers.common = { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+
 
 api.interceptors.response.use((response) => {
     return response;
@@ -51,7 +52,6 @@ export const refreshToken = async () => {
     await api.get('/auth/refreshToken')
         .then(response => {
             localStorage.setItem('token', response.data.accessToken)
-            console.log(response.data.accessToken)
             token = response.data.accessToken
         })
     return token
@@ -71,6 +71,10 @@ export const createPost = async (data: Post) => {
         text: text,
         media: image,
         userId: userId
+    }, {
+        headers: {
+            "Content-Type": "multipart/form-data"
+        }
     }).then(response => {
         console.log(response)
     })

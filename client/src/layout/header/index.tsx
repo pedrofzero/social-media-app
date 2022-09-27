@@ -17,12 +17,12 @@ const Header = () => {
   }
 
   return (
-    <div className='h-16 bg-white flex justify-between items-center px-14'>
+    <div className='h-16 bg-white flex justify-between items-center px-14 border-2 border-solid border-b-black'>
       <div>
         <h1>Social App</h1>
       </div>
       <div className="relative" >
-        <BsPersonCircle size={35} onClick={handleModal}/>
+        <BsPersonCircle size={35} onClick={handleModal} />
         {openUserModal &&
           <>
             <div className='bg-gray-300 absolute z-10 w-48 h-36 -left-28 top-10 rounded-lg flex flex-col items-center justify-center'>

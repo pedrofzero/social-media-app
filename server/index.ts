@@ -10,8 +10,9 @@ import { verifyJWT } from './middleware/jwt';
 
 const app = express();
 app.use(cors({ origin: "http://localhost:3000" }))
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }))
 app.use(bodyParser.json())
+app.use(bodyParser.text({limit: '50mb'}))
 app.use(fileupload())
 app.use(cookieparser())
 
