@@ -8,6 +8,7 @@ import Comment from './Comment'
 
 type Post = {
     id: string;
+    author: any;
     text: string;
     media: string;
     comments: any
@@ -30,7 +31,7 @@ const Post = ({ data }: Props) => {
                             <div className='flex items-center justify-between'>
                                 <div className='flex gap-4 items-center'>
                                     <BsPersonCircle size={30} />
-                                    <h1>{item.id}</h1>
+                                    <h1>{item.author?.username}</h1>
                                 </div>
                                 <div className='relative'>
                                     <BsThreeDots />

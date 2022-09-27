@@ -3,21 +3,29 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import LandingPage from '../pages/landing';
 import ProtectedRoute from './ProtectedRoute';
 import Home from '../pages/home';
+import Profile from '../pages/profile';
 
 const Router = () => {
 
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
-          <Route path='/' element={
-            <LandingPage />} 
-          />
+        <Route path='/' element={
+          <LandingPage />}
+        />
 
-          <Route path='/home' element={
+        <Route path='/home' element={
           <ProtectedRoute>
             <Home />
-          </ProtectedRoute>} 
-          />
+          </ProtectedRoute>}
+        />
+
+        <Route path='/:user' element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+        />
           
       </>
     )

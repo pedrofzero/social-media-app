@@ -36,6 +36,11 @@ export const createPost = async (req: Request, res: Response) => {
 export const getPosts = async (req: Request, res: Response) => {
     const posts = prisma.post.findMany({
         select: {
+            author: {
+                select: {
+                    username: true
+                }
+            },
             id: true,
             text: true,
             media: true,
