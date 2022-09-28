@@ -8,16 +8,19 @@ type Props = {
 
 const Register = ({ setRegisterModal }: Props) => {
 
+  const [gender, setGender] = useState('')
   const { register, handleSubmit } = useForm();
+
   const onSubmit = (fields: any) => {
     api.post('/auth/register', {
       email: fields.email,
       username: fields.username,
-      password: fields.password
+      password: fields.password,
+      gender: gender
     })
-    .then(response => {
-      console.log(response)
-    })
+      .then(response => {
+        console.log(response)
+      })
   }
 
   return (
@@ -44,6 +47,33 @@ const Register = ({ setRegisterModal }: Props) => {
             className="px-4 py-3 mt-4 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
             {...register("password")}
           />
+
+          <p className='py-4 text-sm'>Gender</p>
+
+          <div className='flex gap-2'>
+            <div className='flex gap-2 border-2 border-solid border-gray-600 w-fit rounded-lg px-2 '>
+              <label htmlFor='male'>Male</label>
+              <input
+                type="radio"
+                name="gender"
+                id="male"
+                value="male"
+                onChange={(e) => setGender(e.target.value)}
+              />
+            </div>
+
+            <div className='flex gap-2 border-2 border-solid border-gray-600 w-fit rounded-lg px-2 '>
+              <label htmlFor='female'>Female</label>
+              <input
+                type="radio"
+                name="gender"
+                id="female"
+                value="female"
+                onChange={(e) => setGender(e.target.value)}
+              />
+            </div>
+
+          </div>
 
           <button
             type="submit"

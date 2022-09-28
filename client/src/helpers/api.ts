@@ -1,4 +1,6 @@
 import axios from "axios"
+import { useDispatch } from "react-redux"
+import { setCredentials } from "../redux/authReducer"
 
 // api instance 
 export const api = axios.create({
@@ -78,4 +80,14 @@ export const createPost = async (data: Post) => {
     }).then(response => {
         console.log(response)
     })
+}
+
+
+// Users
+
+export const getUser = (user: any) => {
+    api.post(`/users/${user}`)
+        .then(response => {
+            console.log(response)
+        })
 }

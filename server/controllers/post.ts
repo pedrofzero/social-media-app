@@ -1,21 +1,15 @@
 import { Request, Response } from "express"
 import { prisma } from "../utils/db"
-import cloudinary from "../utils/cloudinary"
+import cloudinary, { uploadImage } from "../utils/cloudinary"
 import jwt from 'jsonwebtoken'
 import { RequestListener } from "http"
 
 export const createPost = async (req: Request, res: Response) => {
     const { text, media, userId } = req.body
-    let image;
 
     // upload image and save it in image variable
     try {
-        await cloudinary.uploader.upload(media, {
-            resource_type: 'auto'
-        })
-            .then(response => {
-                image = response.url
-            })
+        const image = await uploadImage(media)
 
         await prisma.post.create({
             data: {
@@ -51,7 +45,9 @@ export const getPosts = async (req: Request, res: Response) => {
                     text: true,
                     author: {
                         select: {
-                            username: true
+                            username: true,
+                            profilePicture: true,
+                            fullName: true,
                         }
                     }
                 }

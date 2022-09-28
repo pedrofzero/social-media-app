@@ -1,8 +1,15 @@
 import { Request, Response } from "express"
 import bcrypt from 'bcrypt'
 import { prisma } from "../utils/db"
-import jwt, { JsonWebTokenError } from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
+
+import { createAvatar } from '@dicebear/avatars';
+import * as male from '@dicebear/avatars-female-sprites';
+import * as female from '@dicebear/avatars-male-sprites';
+import { randomUUID } from "crypto"
+import { uploadImage } from "../utils/cloudinary"
+
 
 dotenv.config()
 
@@ -30,7 +37,7 @@ export const login = async (req: Request, res: Response) => {
     } else {
 
         // generate tokens
-        const accessToken = jwt.sign({ username, role: user.role }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: "30s" })
+        const accessToken = jwt.sign({ username, role: user.role }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: "15m" })
         const refreshToken = jwt.sign({ username, role: user.role }, process.env.REFRESH_TOKEN_SECRET!, { expiresIn: "1d" })
 
         // add refresh token to dataabase
@@ -52,7 +59,7 @@ export const login = async (req: Request, res: Response) => {
 }
 
 export const register = async (req: Request, res: Response) => {
-    const { username, email, password } = req.body;
+    const { username, email, gender, password } = req.body;
 
     if (!username || !password) {
         return res.status(401).send("Please enter username or password")
@@ -68,6 +75,19 @@ export const register = async (req: Request, res: Response) => {
         return res.status(401).send("This user already exists. Please try another username")
     }
 
+    const createAvatar = async () => {
+        try {
+            const avatar = `https://avatars.dicebear.com/api/${gender === 'male' ? 'male' : 'female'}/${username + randomUUID()}.svg`
+            const image = await uploadImage(avatar)
+            
+            return image
+        } catch (err) {
+            return "Error!"
+        }
+    }
+
+    const avatar = await createAvatar()
+
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
 
@@ -75,7 +95,10 @@ export const register = async (req: Request, res: Response) => {
         data: {
             username: username,
             email: email,
-            password: hashedPassword
+            password: hashedPassword,
+            gender: gender,
+            profilePicture: avatar
+
         }
     })
 
@@ -123,3 +146,4 @@ export const refreshToken = async (req: Request, res: Response) => {
         res.status(401).send(err)
     }
 }
+

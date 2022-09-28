@@ -8,4 +8,15 @@ cloudinary.config({
     api_secret: process.env.CLOUDAPISECRET
 })
 
+export const uploadImage = async (media: string) => {
+    let image;
+    await cloudinary.uploader.upload(media, {
+        resource_type: 'auto'
+    })
+        .then(response => {
+            image = response.url
+        })
+        return image;
+}
+
 export default cloudinary

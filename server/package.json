@@ -7,6 +7,9 @@
     "dev": "ts-node-dev index.ts"
   },
   "dependencies": {
+    "@dicebear/avatars": "^4.10.5",
+    "@dicebear/avatars-female-sprites": "^4.10.5",
+    "@dicebear/avatars-male-sprites": "^4.10.5",
     "@prisma/client": "^4.3.1",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",

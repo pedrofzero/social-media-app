@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express'
+import express from 'express'
 import cors from 'cors'
 import bodyParser, { urlencoded } from 'body-parser';
 import fileupload from 'express-fileupload'
@@ -12,7 +12,7 @@ const app = express();
 app.use(cors({ origin: "http://localhost:3000" }))
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }))
 app.use(bodyParser.json())
-app.use(bodyParser.text({limit: '50mb'}))
+app.use(bodyParser.text({ limit: '50mb' }))
 app.use(fileupload())
 app.use(cookieparser())
 
@@ -23,7 +23,6 @@ app.use('/auth', authRouter)
 app.use(verifyJWT)
 app.use('/post', postRouter)
 app.use('/users', usersRouter)
-
 
 // Start server
 app.listen(8000, () => {
