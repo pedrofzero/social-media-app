@@ -13,7 +13,6 @@ interface RootState {
 const ProtectedRoute = ({ children }: Props) => {
 
     const user = useSelector((state: RootState) => state.user)
-    console.log(`user: ${user}`)
 
     if (!user) {
         return <LandingPage />

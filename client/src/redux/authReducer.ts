@@ -2,15 +2,19 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 // Define a type for the slice state
 interface AuthState {
-  user: String
-  userId: String
-  token: String
+  user: string;
+  userId: string;
+  profilePicture: string;
+  fullName: string;
+  token: string
 }
 
 // Define the initial state using that type
 const initialState: AuthState = {
   user: '',
   userId: '',
+  profilePicture: '',
+  fullName: '',
   token: ''
 }
 
@@ -20,10 +24,12 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     setCredentials: (state, action) => {
-      const { username, userId, token } = action.payload
-      state.user = username
+      const { user, userId, profilePicture, fullName, accessToken } = action.payload
+      state.user = user
       state.userId = userId
-      state.token = token
+      state.profilePicture = profilePicture
+      state.fullName = fullName
+      state.token = accessToken
     },
     logout: (state) : any => {
       state.user = ''
@@ -32,6 +38,12 @@ export const authSlice = createSlice({
     }
   }
 })
+
+    // user: user.username,
+    //         userId: user.id,
+    //         fullName: user.fullName,
+    //         profilePicture: user.profilePicture,
+    //         accessToken: accessToken,
 
 export const { setCredentials, logout } = authSlice.actions
 

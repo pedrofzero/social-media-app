@@ -58,6 +58,49 @@ export const getPosts = async (req: Request, res: Response) => {
     })
 }
 
+export const getPost = async (req: Request, res: Response) => {
+    const { user, postId } = req.body
+
+    const post = prisma.post.findFirstOrThrow({
+        where: {
+            OR: {
+                id: postId,
+                author: {
+                    username: user
+                }
+            },
+        },
+        select: {
+            id: true,
+            text: true,
+            media: true,
+            author: {
+                select: {
+                    username: true,
+                }
+            },
+            comments: {
+                select: {
+                    createdAt: true,
+                    id: true,
+                    text: true,
+                    author: {
+                        select: {
+                            username: true,
+                            profilePicture: true,
+                            fullName: true,
+                        }
+                    }
+                }
+            }
+        }
+    }).then(response => {
+        res.status(200).send(response)
+    }).catch(err => {
+        res.status(401).send(err)
+    })
+}
+
 export const removePost = async (req: Request, res: Response) => {
     const { postId } = req.body;
 
@@ -70,7 +113,7 @@ export const removePost = async (req: Request, res: Response) => {
     res.send("Post deleted successfully.")
 }
 
-export const addComment = async (req: Request, res: Response) => {
+export const newComment = async (req: Request, res: Response) => {
     const { text, post, user } = req.body;
     const comment = prisma.comment.create({
         data: {

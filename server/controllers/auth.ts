@@ -52,8 +52,9 @@ export const login = async (req: Request, res: Response) => {
         res.json({
             user: user.username,
             userId: user.id,
+            fullName: user.fullName,
+            profilePicture: user.profilePicture,
             accessToken: accessToken,
-            refreshToken: refreshToken
         })
     }
 }
@@ -79,7 +80,7 @@ export const register = async (req: Request, res: Response) => {
         try {
             const avatar = `https://avatars.dicebear.com/api/${gender === 'male' ? 'male' : 'female'}/${username + randomUUID()}.svg`
             const image = await uploadImage(avatar)
-            
+
             return image
         } catch (err) {
             return "Error!"

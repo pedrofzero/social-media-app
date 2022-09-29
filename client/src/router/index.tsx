@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
-import LandingPage from '../pages/landing';
 import ProtectedRoute from './ProtectedRoute';
 import Home from '../pages/home';
 import Profile from '../pages/profile';
+import Post from '../pages/post';
 
 const Router = () => {
 
@@ -11,22 +11,24 @@ const Router = () => {
     createRoutesFromElements(
       <>
         <Route path='/' element={
-          <LandingPage />}
-        />
-
-        <Route path='/home' element={
           <ProtectedRoute>
             <Home />
           </ProtectedRoute>}
         />
 
-        <Route path='/:user' element={
+        <Route path='/:user/'
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          } />
+
+        <Route path='/:user/:post' element={
           <ProtectedRoute>
-            <Profile />
+            <Post />
           </ProtectedRoute>
         }
         />
-          
       </>
     )
   );

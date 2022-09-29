@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import Activity from '../../components/Activity'
 import CreatePost from '../../components/CreatePost'
 import Messages from '../../components/Messages'
-import Post from '../../components/Post'
-import { api } from '../../helpers/api'
-import { useWindowSize } from '../../hooks/useWindowSize'
+import SinglePost from '../../components/SinglePost'
+import { api, getPost } from '../../helpers/api'
 import Header from '../../layout/header'
-import Modal from '../../layout/modal'
 
-const Home = () => {
 
-    const [data, setData] = useState()
-    const [currentPostModal, setCurrentPostModal] = useState(false)
+
+const Post = () => {
+
+    const { user, post } = useParams()
     const [loading, setLoading] = useState(true)
+    const [singlePost, setSinglePost] = useState<any>()
 
     useEffect(() => {
-        api.get('/post/getAllPosts')
-            .then(response => {
-                setData(response.data)
-                setLoading(false)
-            })
+        const getPostCall = async () => {
+            const data = await getPost(user, post)
+            setSinglePost(data);
+            setLoading(false)
+        }
+        getPostCall();
     }, [])
-
-
 
     return (
         <>
@@ -34,13 +34,10 @@ const Home = () => {
                         <Activity />
                     </div>
                     <div className='w-full grid gap-2 p-2 '>
-                        <div className='h-auto bg-white rounded-lg p-5'>
-                            <CreatePost />
-                        </div>
                         {!loading &&
-                            // <div className='flex flex-col gap-4'>
-                                <Post data={data!} />
-                            // </div>
+                            <div className='flex flex-col gap-4'>
+                                <SinglePost post={singlePost}/>
+                            </div>
                         }
                     </div>
                     <div className='hidden md:block h-fit md:w-3/4 lg:w-4/5 bg-white rounded-lg justify-end p-4'>
@@ -49,8 +46,7 @@ const Home = () => {
                 </div>
             </div>
         </>
-
     )
 }
 
-export default Home
+export default Post

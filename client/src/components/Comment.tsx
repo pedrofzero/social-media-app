@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { AiOutlineHeart } from 'react-icons/ai'
-import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { api, newComment } from '../helpers/api';
 
 type Comment = {
     id: string,
@@ -14,19 +16,39 @@ type Comment = {
 
 type Props = {
     data: Comment[]
+    postId: string
 }
 
-const Comment = ({ data }: Props) => {
+type RootState = {
+    user: string;
+    userId: string
+    profilePicture: string
+    fullName: string
 
+}
+
+const Comment = ({ data, postId }: Props) => {
+
+    const user = useSelector((state: RootState) => state.user)
+    const userId = useSelector((state: RootState) => state.userId)
+    const userPicture = useSelector((state: RootState) => state.profilePicture)
+    const userFullName = useSelector((state: RootState) => state.fullName)
+
+    const location = useLocation();
     const navigate = useNavigate()
 
+    const [commentText, setCommentText] = useState('')
+
+    const handleNewComment = () => {
+        newComment(userId, commentText, postId);
+    }
+
     return (
-        <div className='p-2 w-full'>
-            {data.map((item) => {
-                console.log(item)
+        <div className='p-1 w-full'>
+            {location.pathname === '/' ? data.slice(0, 1).map(item => {
                 return (
                     <>
-                        <div className='flex gap-2 items-center' key={item.id}>
+                        <div className='flex gap-4 items-center' key={item.id}>
                             <img src={item.author.profilePicture} className="h-7 w-7 bg-black rounded-full" />
                             <div className='flex flex-col'>
                                 <p>{item.author.fullName} <span className='text-gray-200' onClick={() => navigate(`/${item.author.username}`)}>@{item.author.username}</span></p>
@@ -36,7 +58,40 @@ const Comment = ({ data }: Props) => {
                         </div>
                     </>
                 )
-            })}
+            })
+                :
+                <>
+                    <div className='flex gap-4 items-center py-2  border-b-2 border-solid border-black'>
+                        <img src={userPicture} className="h-7 w-7 bg-black rounded-full" />
+                        <div className='flex flex-col w-full'>
+                            <p>{userFullName} <span className='text-gray-200' onClick={() => navigate(`/${userFullName}`)}>@{user}</span></p>
+                            <div className='flex'>
+                                <textarea
+                                    value={commentText}
+                                    onChange={e => setCommentText(e.target.value)}
+                                    placeholder={`Hey ${user}, write a tweet!`}
+                                    maxLength={100}
+                                    className='resize-none overflow-hidden outline-none p-2 w-3/4 h-14 items-center flex'>
+                                </textarea>
+                                <button className='rounded-full bg-green-500 w-20 h-12 ml-auto mt-auto' onClick={() => handleNewComment()}>Hello</button>
+                            </div>
+                        </div>
+                    </div>
+                    {data.map(item => {
+                        return (
+                            <>
+                                <div className='flex gap-4 items-center py-2' key={item.id}>
+                                    <img src={item.author.profilePicture} className="h-7 w-7 bg-black rounded-full" />
+                                    <div className='flex flex-col'>
+                                        <p>{item.author.fullName} <span className='text-gray-200' onClick={() => navigate(`/${item.author.username}`)}>@{item.author.username}</span></p>
+                                        <p>{item.text}</p>
+                                        <AiOutlineHeart />
+                                    </div>
+                                </div>
+                            </>
+                        )
+                    })}
+                </>}
         </div>
     )
 }

@@ -19,16 +19,18 @@ const Login = ({ setRegisterModal }: Props) => {
 
     const handleSubmit = async () => {
 
-        await login(username, password)
+        const handleLogin = await login(username, password)
+        // console.log(handleLogin)
 
         if (localStorage.getItem('token') && localStorage.getItem('user_id')) {
             const userId = localStorage.getItem('user_id')
             const token = localStorage.getItem('token')
-            dispatch(setCredentials({ username, userId, token }))
-            navigate('/home')
+            dispatch(setCredentials(handleLogin))
+            navigate('/')
         }
-
     }
+
+
 
     return (
         <div className="w-2/4 mx-auto p-2 bg-white rounded-lg">

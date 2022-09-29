@@ -23,7 +23,7 @@ const Header = () => {
   return (
     <div className='h-16 bg-white flex justify-between items-center px-14 border-2 border-solid border-b-black'>
       <div>
-        <h1 onClick={() => navigate('/home')}>Social App</h1>
+        <h1 onClick={() => navigate('/')}>Social App</h1>
       </div>
       <div className="relative" >
         <BsPersonCircle size={35} onClick={handleModal} />

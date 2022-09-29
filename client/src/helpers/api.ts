@@ -31,12 +31,15 @@ api.interceptors.response.use((response) => {
 
 // api calls
 export const login = async (username: any, password: any) => {
+    let data;
+
     await api.post('auth/login', {
         username: username,
         password: password
     })
         .then(response => {
-            console.log(response)
+            data = response.data
+            console.log(response.data)
             localStorage.setItem('user', response.data.user)
             localStorage.setItem('user_id', response.data.userId)
             localStorage.setItem('token', response.data.accessToken)
@@ -46,6 +49,8 @@ export const login = async (username: any, password: any) => {
                 return false;
             }
         })
+
+    return data;
 }
 
 export const refreshToken = async () => {
@@ -82,7 +87,24 @@ export const createPost = async (data: Post) => {
     })
 }
 
+export const getPost = async (user: any, post: any) => {
+    let data;
+    await api.post(`/post/getPost`, {
+        user: user,
+        postId: post
+    }).then(response => {
+        data = response.data
+    })
+    return data
+}
 
+export const newComment = async (user: string, commentText: string, postId: string) => {
+    api.post('post/newComment', {
+        user: user,
+        text: commentText,
+        post: postId
+    })
+}
 // Users
 
 export const getUser = (user: any) => {
