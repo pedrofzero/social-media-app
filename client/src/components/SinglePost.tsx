@@ -44,6 +44,7 @@ const SinglePost = ({ post }: Props) => {
             <div className='flex justify-between pt-4'>
                 <div className='flex gap-2'>
                     <AiOutlineLike size={25} />
+                    <FiMessageCircle size={25} />
                 </div>
                 <div>
                     <BsBookmark size={25} />
