@@ -100,8 +100,8 @@ export const getPost = async (user: any, post: any) => {
 
 export const newComment = async (user: string, commentText: string, postId: string) => {
     api.post('post/newComment', {
-        user: user,
         text: commentText,
+        user: user,
         post: postId
     })
 }

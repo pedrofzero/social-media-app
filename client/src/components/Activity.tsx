@@ -27,9 +27,6 @@ const Activity = () => {
                     <BsPersonCircle size={30}/>
                     <p>User started following you.</p>
                 </div>
-                <div onClick={() => dispatch(logout())}>
-                    <h1>LOGOUT</h1>
-                </div>
             </div>
         </div>
     )

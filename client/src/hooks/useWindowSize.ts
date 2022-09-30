@@ -4,17 +4,13 @@ interface Size {
     width: number | undefined;
   }
 
-export function useWindowSize(): Size {
+export function useWindowSize(): number {
 
-    const [windowSize, setWindowSize] = useState<Size>({
-      width: undefined,
-    });
+    const [windowSize, setWindowSize] = useState(window.innerWidth);
     useEffect(() => {
       // Handler to call on window resize
       function handleResize() {
-        setWindowSize({
-          width: window.innerWidth,
-        });
+        setWindowSize(window.innerWidth);
       }
 
       window.addEventListener("resize", handleResize);

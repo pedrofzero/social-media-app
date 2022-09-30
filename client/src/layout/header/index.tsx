@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import { BsPersonCircle } from 'react-icons/bs'
+import { HiMenuAlt4 } from 'react-icons/hi'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { useWindowSize } from '../../hooks/useWindowSize'
 import { logout } from '../../redux/authReducer'
 
 const Header = () => {
+
+  const size = useWindowSize();
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -21,9 +25,10 @@ const Header = () => {
   }
 
   return (
-    <div className='h-16 bg-white flex justify-between items-center px-14 border-2 border-solid border-b-black'>
+
+    <div className='h-16 bg-white flex justify-between items-center px-8 border-2 border-solid border-b-black'>
       <div>
-        <h1 onClick={() => navigate('/')}>Social App</h1>
+        <h1 onClick={() => navigate('/')}>{size <= 768 ? <HiMenuAlt4 /> : 'Social App'} </h1>
       </div>
       <div className="relative" >
         <BsPersonCircle size={35} onClick={handleModal} />

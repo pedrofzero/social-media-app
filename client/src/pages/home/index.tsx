@@ -22,30 +22,26 @@ const Home = () => {
             })
     }, [])
 
-
-
     return (
         <>
-            <div>
+            <div className=''>
                 <Header />
                 {/* ${currentPostModal && 'opacity-50'} */}
-                <div className={`grid sm:grid-cols-2 md:grid-cols-3 pt-4 justify-items-center border-solid border-2 `}>
-                    <div className='hidden sm:block h-fit md:w-3/4 lg:w-4/5 bg-white rounded-lg justify-end p-4'>
+                <div className={`grid sm:grid-cols-1 md:grid-cols-1 pt-4 px-4 justify-items-center border-solid border-2 `}>
+                    {/* <div className='hidden md:block  h-fit md:w-3/4 lg:w-4/5 bg-white rounded-lg justify-end p-4'>
                         <Activity />
-                    </div>
-                    <div className='w-full grid gap-2 p-2 '>
+                    </div> */}
+                    <div className='w-full grid gap-2'>
                         <div className='h-auto bg-white rounded-lg p-5'>
                             <CreatePost />
                         </div>
                         {!loading &&
-                            // <div className='flex flex-col gap-4'>
-                                <Post data={data!} />
-                            // </div>
+                            <Post data={data!} />
                         }
                     </div>
-                    <div className='hidden md:block h-fit md:w-3/4 lg:w-4/5 bg-white rounded-lg justify-end p-4'>
+                    {/* <div className='hidden md:block h-fit md:w-3/4 lg:w-4/5 bg-white rounded-lg justify-end p-4'>
                         <Messages />
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </>
