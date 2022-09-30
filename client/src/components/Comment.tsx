@@ -29,13 +29,13 @@ type RootState = {
 
 const Comment = ({ data, postId }: Props) => {
 
+    const navigate = useNavigate()
+    const location = useLocation();
+
     const user = useSelector((state: RootState) => state.user)
     const userId = useSelector((state: RootState) => state.userId)
     const userPicture = useSelector((state: RootState) => state.profilePicture)
     const userFullName = useSelector((state: RootState) => state.fullName)
-
-    const location = useLocation();
-    const navigate = useNavigate()
 
     const [commentText, setCommentText] = useState('')
 
@@ -45,6 +45,7 @@ const Comment = ({ data, postId }: Props) => {
 
     return (
         <div className='p-1 w-full'>
+            {/* If path is /, then only show 1 comment, so it doesn't flood every post. If it's not /, then we're inside the post link, and we can show every comment. */}
             {location.pathname === '/' ? data.slice(0, 1).map(item => {
                 return (
                     <>

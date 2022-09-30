@@ -6,12 +6,12 @@ import Post from '../../components/Post'
 import { api } from '../../helpers/api'
 import { useWindowSize } from '../../hooks/useWindowSize'
 import Header from '../../layout/header'
+import Menu from '../../layout/menu'
 import Modal from '../../layout/modal'
 
 const Home = () => {
 
     const [data, setData] = useState()
-    const [currentPostModal, setCurrentPostModal] = useState(false)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {

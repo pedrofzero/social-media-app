@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { SetStateAction, useState } from 'react'
 import { BsPersonCircle } from 'react-icons/bs'
 import { HiMenuAlt4 } from 'react-icons/hi'
 import { useDispatch, useSelector } from 'react-redux'
@@ -25,10 +25,9 @@ const Header = () => {
   }
 
   return (
-
     <div className='h-16 bg-white flex justify-between items-center px-8 border-2 border-solid border-b-black'>
       <div>
-        <h1 onClick={() => navigate('/')}>{size <= 768 ? <HiMenuAlt4 /> : 'Social App'} </h1>
+        <h1 >{size <= 768 ? <HiMenuAlt4 /> : <p onClick={() => navigate('/')}>Social App</p>} </h1>
       </div>
       <div className="relative" >
         <BsPersonCircle size={35} onClick={handleModal} />
