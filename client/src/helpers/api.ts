@@ -98,13 +98,38 @@ export const getPost = async (user: any, post: any) => {
     return data
 }
 
+export const deletePost = async (postId: string) => {
+    let data;
+    await api.post('post/deletePost', {
+        postId
+    }).then(response => {
+        data = response.data
+    })
+    return data;
+}
+
 export const newComment = async (user: string, commentText: string, postId: string) => {
-    api.post('post/newComment', {
+    let data;
+    await api.post('post/newComment', {
         text: commentText,
         user: user,
         post: postId
+    }).then(response => {
+        data = response.data
     })
+    return data;
 }
+
+export const deleteComment = async (commentId: string) => {
+    let data;
+    await api.post('post/deleteComment', {
+        commentId
+    }).then(response => {
+        data = response.data
+    })
+    return data;
+}
+
 // Users
 
 export const getUser = (user: any) => {

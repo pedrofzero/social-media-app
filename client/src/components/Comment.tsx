@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -39,14 +39,22 @@ const Comment = ({ data, postId }: Props) => {
 
     const [commentText, setCommentText] = useState('')
 
-    const handleNewComment = () => {
-        newComment(userId, commentText, postId);
+    const [comments, setComments] = useState(data)
+
+    useEffect(() => {
+
+    })
+
+    const handleNewComment = async () => {
+        const comment = await newComment(userId, commentText, postId).then(response => {
+            console.log(response)
+        })
     }
 
     return (
         <div className='p-1 w-full'>
             {/* If path is /, then only show 1 comment, so it doesn't flood every post. If it's not /, then we're inside the post link, and we can show every comment. */}
-            {location.pathname === '/' ? data.slice(0, 1).map(item => {
+            {location.pathname === '/' ? comments.slice(0, 1).map(item => {
                 return (
                     <>
                         <div className='flex gap-4 items-center' key={item.id}>
@@ -78,9 +86,10 @@ const Comment = ({ data, postId }: Props) => {
                             </div>
                         </div>
                     </div>
-                    {data.map(item => {
+                    {comments.map(item => {
                         return (
                             <>
+
                                 <div className='flex gap-4 items-center py-2' key={item.id}>
                                     <img src={item.author.profilePicture} className="h-7 w-7 bg-black rounded-full" />
                                     <div className='flex flex-col'>

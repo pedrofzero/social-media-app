@@ -1,8 +1,6 @@
 import { Request, Response } from "express"
 import { prisma } from "../utils/db"
-import cloudinary, { uploadImage } from "../utils/cloudinary"
-import jwt from 'jsonwebtoken'
-import { RequestListener } from "http"
+import { uploadImage } from "../utils/cloudinary"
 
 export const createPost = async (req: Request, res: Response) => {
     const { text, media, userId } = req.body
@@ -28,7 +26,7 @@ export const createPost = async (req: Request, res: Response) => {
 }
 
 export const getPosts = async (req: Request, res: Response) => {
-    const posts = prisma.post.findMany({
+    const posts = await prisma.post.findMany({
         select: {
             author: {
                 select: {
@@ -61,7 +59,7 @@ export const getPosts = async (req: Request, res: Response) => {
 export const getPost = async (req: Request, res: Response) => {
     const { user, postId } = req.body
 
-    const post = prisma.post.findFirstOrThrow({
+    const post = await prisma.post.findFirstOrThrow({
         where: {
             OR: {
                 id: postId,
@@ -101,10 +99,10 @@ export const getPost = async (req: Request, res: Response) => {
     })
 }
 
-export const removePost = async (req: Request, res: Response) => {
+export const deletePost = async (req: Request, res: Response) => {
     const { postId } = req.body;
 
-    const post = prisma.post.delete({
+    const post = await prisma.post.delete({
         where: {
             id: postId
         }
@@ -115,14 +113,25 @@ export const removePost = async (req: Request, res: Response) => {
 
 export const newComment = async (req: Request, res: Response) => {
     const { text, post, user } = req.body;
-    const comment = prisma.comment.create({
+    const comment = await prisma.comment.create({
         data: {
             text: text,
             authorId: user,
             postId: post
         }
     }).then(response => {
-        console.log(response)
+        res.status(201).send(response)
     })
-    res.status(201).send("Comment sent successfully")
+    
+}
+
+export const deleteComment = async(req: Request, res: Response) => {
+    const { commentId } = req.body;
+    const deleteComment = await prisma.comment.delete({
+        where: {
+            id: commentId
+        }
+    })
+
+    res.send("Comment deleted successfully.")
 }

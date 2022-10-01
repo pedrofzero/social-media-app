@@ -19,8 +19,6 @@ type Props = {
 
 const SinglePost = ({ post }: Props) => {
 
-    console.log(post)
-
     return (
         <div className='h-auto bg-white rounded-lg p-5 border-2 border-sold border-black' key={post.id}>
             <div className='flex posts-center justify-between'>
