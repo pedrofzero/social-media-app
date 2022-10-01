@@ -31,10 +31,7 @@ const ProfileCard = () => {
     return (
         <>
             {!loading &&
-                <div className={`grid sm:grid-cols-2 md:grid-cols-3 pt-4 justify-items-center border-solid border-2`}>
-                    <div className='hidden sm:block h-fit md:w-3/4 lg:w-4/5 bg-white rounded-lg justify-end p-4'>
-                        <Activity />
-                    </div>
+                // <d
                     <div className='w-full grid gap-0'>
                         <div className='bg-white h-40 rounded-lg p-6 flex flex-col justify-between'>
                             <img src={data?.profilePicture} className="w-14 h-14 bg-black rounded-full"/>
@@ -49,10 +46,7 @@ const ProfileCard = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='hidden md:block h-fit md:w-3/4 lg:w-4/5 bg-white rounded-lg justify-end p-4'>
-                        <Messages />
-                    </div>
-                </div>
+                    
             }
         </>
     )

@@ -80,7 +80,7 @@ const Comment = ({ data, postId }: Props) => {
                                     onChange={e => setCommentText(e.target.value)}
                                     placeholder={`Hey ${user}, write a tweet!`}
                                     maxLength={100}
-                                    className='resize-none overflow-hidden outline-none p-2 w-3/4 h-14 items-center flex'>
+                                    className='resize-none overflow-hidden outline-none p-2 w-3/4 h-14 items-center flex bg-inherit'>
                                 </textarea>
                                 <button className='rounded-full bg-green-500 w-20 h-12 ml-auto mt-auto' onClick={() => handleNewComment()}>Hello</button>
                             </div>

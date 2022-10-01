@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import Activity from '../../components/Activity'
 import CreatePost from '../../components/CreatePost'
-import Messages from '../../components/Messages'
 import Post from '../../components/Post'
 import { api } from '../../helpers/api'
-import { useWindowSize } from '../../hooks/useWindowSize'
 import Header from '../../layout/header'
-import Menu from '../../layout/menu'
-import Modal from '../../layout/modal'
 
 const Home = () => {
 

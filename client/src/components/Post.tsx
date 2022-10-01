@@ -12,7 +12,7 @@ import { deleteComment, deletePost } from '../helpers/api'
 type Post = {
     id: string;
     author: any;
-    username: string;
+    // username: any;
     text: string;
     media: string;
     comments: any
