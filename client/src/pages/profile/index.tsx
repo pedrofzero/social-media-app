@@ -5,16 +5,17 @@ import ProfileCard from '../../components/ProfileCard'
 import Header from '../../layout/header'
 import Activity from '../../components/Activity'
 import Messages from '../../components/Messages'
+import Spinner from '../../assets/Spinner'
 
 const Profile = () => {
 
     const [loading, setLoading] = useState(true)
-    const [data, setData] = useState();
+    const [posts, setPosts] = useState();
 
     useEffect(() => {
         api.post(`/post/getUserPosts`)
             .then(response => {
-                setData(response.data)
+                setPosts(response.data)
                 setLoading(false)
             })
     }, [])
@@ -27,16 +28,14 @@ const Profile = () => {
             <div className={`grid grid-cols-1 w-1/2 m-auto pt-4 px-4 justify-items-center border-solid border-2 `}>
                 <div className='w-full grid gap-2'>
                     <ProfileCard />
+                    {!posts}
                     <div className='h-auto bg-white rounded-lg p-5'>
-                        {!loading &&
-                            <>
-                                <Post data={data!} />
-                            </>
+                        {!loading ?
+                            <Post data={posts!} setData={setPosts}/>
+                            :
+                            <Spinner />
                         }
                     </div>
-                    {!loading &&
-                        <Post data={data!} />
-                    }
                 </div>
             </div>
         </div>

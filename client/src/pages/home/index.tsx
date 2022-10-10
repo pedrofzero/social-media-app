@@ -6,13 +6,13 @@ import Header from '../../layout/header'
 
 const Home = () => {
 
-    const [data, setData] = useState()
     const [loading, setLoading] = useState(true)
+    const [posts, setPosts] = useState()
 
     useEffect(() => {
         api.get('/post/getAllPosts')
             .then(response => {
-                setData(response.data)
+                setPosts(response.data)
                 setLoading(false)
             })
     }, [])
@@ -21,22 +21,15 @@ const Home = () => {
         <>
             <div className=''>
                 <Header />
-                {/* ${currentPostModal && 'opacity-50'} */}
-                <div className={`grid sm:grid-cols-1 md:grid-cols-1 pt-4 px-4 justify-items-center border-solid border-2 `}>
-                    {/* <div className='hidden md:block  h-fit md:w-3/4 lg:w-4/5 bg-white rounded-lg justify-end p-4'>
-                        <Activity />
-                    </div> */}
+                <div className={`grid sm:grid-cols-1 md:grid-cols-1 pt-4 px-4 justify-items-center border-solid border-2`}>
                     <div className='w-full grid gap-2'>
                         <div className='h-auto bg-white rounded-lg p-5'>
-                            <CreatePost />
+                            <CreatePost setData={setPosts} />
                         </div>
                         {!loading &&
-                            <Post data={data!} />
+                            <Post data={posts!} setData={setPosts} />
                         }
                     </div>
-                    {/* <div className='hidden md:block h-fit md:w-3/4 lg:w-4/5 bg-white rounded-lg justify-end p-4'>
-                        <Messages />
-                    </div> */}
                 </div>
             </div>
         </>

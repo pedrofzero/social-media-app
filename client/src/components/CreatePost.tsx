@@ -6,15 +6,18 @@ import { BsPersonCircle } from 'react-icons/bs'
 import { IoMdSend } from 'react-icons/io'
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { GrGallery } from 'react-icons/gr'
-import { createPost } from '../helpers/api'
+import { api, createPost } from '../helpers/api'
 
 interface RootState {
   user: string
   userId: string
 }
 
+type Props = {
+  setData: React.Dispatch<React.SetStateAction<any>>
+}
 
-const CreatePost = () => {
+const CreatePost = ({ setData }: Props) => {
 
   const user = useSelector((state: RootState) => state.user)
   const userId = useSelector((state: RootState) => state.userId)
@@ -41,6 +44,10 @@ const CreatePost = () => {
 
   const handlePost = async () => {
     await createPost(post)
+    await api.get('/post/getAllPosts')
+      .then(response => {
+        setData(response.data)
+      })
   }
 
   return (
@@ -70,11 +77,11 @@ const CreatePost = () => {
         <div className='pl-14'>
           <input type='file' id='img-upload' className='hidden' onChange={handleImage} />
           <label htmlFor='img-upload'>
-            <GrGallery size={30}/>
+            <GrGallery size={30} />
           </label>
         </div>
         <div>
-          <IoMdSend onClick={handlePost} size={30}/>
+          <IoMdSend onClick={handlePost} size={30} />
         </div>
       </div>
 

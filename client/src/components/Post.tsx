@@ -19,7 +19,8 @@ type Post = {
 }
 
 type Props = {
-    data: Post[]
+    data: Post[];
+    setData: React.Dispatch<React.SetStateAction<any>>
 }
 
 type UserState = {
@@ -27,12 +28,9 @@ type UserState = {
     userId: string
     profilePicture: string
     fullName: string
-
 }
 
-
-
-const Post = ({ data }: Props) => {
+const Post = ({ data, setData }: Props) => {
 
     const user = useSelector((state: UserState) => state.user)
 
