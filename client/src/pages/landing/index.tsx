@@ -18,10 +18,9 @@ const LandingPage = () => {
         </>
       }
 
-      <div className={`h-screen grid grid-cols-2 ${registerModal && 'opacity-50'}`}>
-
+      <div className={`h-screen grid grid-cols-1 md:grid-cols-2`}>
         {/* left side */}
-        <div className='h-full align-middle bg-white'>
+        <div className='hidden md:block h-full align-middle bg-white'>
           <div className='text-6xl text-black text-center pt-40'>
             Social Media
           </div>
