@@ -6,14 +6,18 @@ import Header from '../../layout/header'
 import Activity from '../../components/Activity'
 import Messages from '../../components/Messages'
 import Spinner from '../../assets/Spinner'
+import { useParams } from 'react-router-dom'
 
 const Profile = () => {
 
+    const { user } = useParams();
     const [loading, setLoading] = useState(true)
     const [posts, setPosts] = useState();
 
     useEffect(() => {
-        api.post(`/post/getUserPosts`)
+        api.post(`/post/getUserPosts`, {
+            username: user
+        })
             .then(response => {
                 setPosts(response.data)
                 setLoading(false)

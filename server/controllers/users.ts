@@ -27,7 +27,9 @@ export const getUser = async (req: Request, res: Response) => {
 }
 
 export const getUserPosts = async (req: Request, res: Response) => {
-    const { username } = req.params;
+    const { username } = req.body;
+
+    if (!username) return res.status(401).send("No user.")
     
     const posts = await prisma.post.findMany({
         where: {

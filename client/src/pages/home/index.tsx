@@ -21,7 +21,7 @@ const Home = () => {
         <>
             <div className=''>
                 <Header />
-                <div className={`grid sm:grid-cols-1 md:grid-cols-1 pt-4 px-4 justify-items-center border-solid border-2`}>
+                <div className={`grid grid-cols-1 w-1/2 m-auto pt-4 px-4 justify-items-center border-solid border-2`}>
                     <div className='w-full grid gap-2'>
                         <div className='h-auto bg-white rounded-lg p-5'>
                             <CreatePost setData={setPosts} />
